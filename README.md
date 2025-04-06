@@ -41,3 +41,20 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 ### 1.0.0
 
 This is a free back-end management system for you to customize the secondary development of your own back-end management system."# FreeBackPort" 
+
+
+your-project/
+├── src/
+│   ├── login.html                 # 登录主界面
+│   ├── change-password.html       # 修改密码界面
+│   ├── main.html                  # 主管理界面
+│   ├── styles/
+│   │   ├── change-password.css    # 更改密码样式
+│   │   ├── login.css              # 登录界面样式
+│   │   ├── main.css               # 主界面样式
+│   ├── renderer/
+│   │   ├── change-password.js     # 更改密码逻辑
+│   │   ├── login.js               # 登录界面逻辑
+│   │   ├── main.js                # 主界面逻辑
+├── main.js                        # Electron主进程
+├── preload.js
