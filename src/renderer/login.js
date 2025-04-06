@@ -4,8 +4,11 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     window.electronAPI.navigateTo('main.html');
 });
 
-document.getElementById('changeForm').addEventListener('submit', (e) => {
+document.getElementById('changePasswordLink').addEventListener('click', (e) => {
     e.preventDefault();
-    // 这里可以添加更改密码的逻辑
-    window.electronAPI.navigateTo('login.html');
+    console.log('点击事件触发'); // 添加调试输出
+    window.electronAPI.navigateTo('change-password.html');
 });
+
+
+

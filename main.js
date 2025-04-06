@@ -17,12 +17,15 @@ function createWindow () {
   mainWindow.loadFile('src/login.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // 添加监听器
   ipcMain.on('navigate-to', (event, path) => {
+    const fullPath = `src/${path}`;
+    console.log('加载路径:', fullPath); // 添加路径输出
     mainWindow.loadFile(`src/${path}`)
   })
+
 }
 
 // This method will be called when Electron has finished
