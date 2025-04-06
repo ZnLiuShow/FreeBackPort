@@ -45,8 +45,8 @@ This is a free back-end management system for you to customize the secondary dev
 ![欢迎加入](./img/qqun.png)
 
 ## sourcefiles
-freeport/
 ```
+your-project/
 ├── src/
 │   ├── login.html                 # 登录主界面
 │   ├── change-password.html       # 修改密码界面
@@ -54,10 +54,10 @@ freeport/
 │   ├── styles/
 │   │   ├── change-password.css    # 更改密码样式
 │   │   ├── login.css              # 登录界面样式
-│   │   ├── main.css               # 主界面样式
-│   ├── renderer/
-│   │   ├── change-password.js     # 更改密码逻辑
-│   │   ├── login.js               # 登录界面逻辑
-│   │   ├── main.js                # 主界面逻辑
+│   │   └── main.css               # 主界面样式
+│   └── renderer/
+│       ├── change-password.js     # 更改密码逻辑
+│       ├── login.js               # 登录界面逻辑
+│       └── main.js                # 主界面逻辑
 ├── main.js                        # Electron主进程
-├── preload.js
+└──preload.js
