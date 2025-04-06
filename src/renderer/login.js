@@ -1,3 +1,4 @@
+// Welcome to qq group: 1030115250
 document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     // 这里可以添加验证逻辑

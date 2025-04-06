@@ -5,6 +5,7 @@
  * Node.js functions.
  *
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
+ * // Welcome to qq group: 1030115250
  */
 const { contextBridge, ipcRenderer } = require('electron')
 

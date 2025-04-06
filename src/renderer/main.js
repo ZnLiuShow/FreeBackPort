@@ -1,3 +1,4 @@
+// Welcome to qq group: 1030115250
 document.addEventListener('DOMContentLoaded', () => {
     // 绑定标签切换事件
     const tabs = document.querySelectorAll('.tab');
