@@ -56,32 +56,46 @@
       <table class="data-table">
         <thead>
           <tr>
-            <th>序号</th>
-            <th>用户</th>
-            <th>账户创建时间</th>
-            <th>服务时长</th>
-            <th>状态</th>
+            <th style="width: 10%;">序号</th>
+            <th style="width: 40%;">用户名</th>
+            <th style="width: 20%;">创建时间</th>
+            <th style="width: 15%;">剩余时长</th>
+            <th style="width: 15%;">状态</th>
           </tr>
         </thead>
         <tbody>
           <!-- 表格数据 -->
         </tbody>
       </table>
-      <button>一键清理</button>
-      <button>一键操作</button>
+      <div class="manage-buttons">
+        <button>查询用户</button>
+        <div class="right-buttons">
+          <button>一键清理</button>
+          <button>一键操作</button>
+        </div>
+      </div>
     </div>
 
     <!-- 生成标签页 -->
     <div id="generate" class="tab-content">
-      <select id="cardType">
-        <option value="dayCard">天卡</option>
-        <option value="weekCard">周卡</option>
-        <option value="monthCard">月卡</option>
-        <option value="quarterCard">季卡</option>
-      </select>
-      <input type="number" id="generateCount" placeholder="生成数量">
-      <button>生成</button>
-      <textarea id="generatedCards" rows="10" cols="30" readonly></textarea>
+        <div class="generate-form">
+        <div class="left-group">
+            <select id="cardType">
+            <option value="hourCard">测试卡</option>
+            <option value="dayCard">天卡</option>
+            <option value="weekCard">周卡</option>
+            <option value="monthCard">月卡</option>
+            <option value="quarterCard">季卡</option>
+            <option value="yearCard">年卡</option>
+            </select>
+            <input type="number" id="generateCount" placeholder="数量">
+        </div>
+        <div class="right-group">
+            <button>生成</button>
+            <button>保存</button>
+        </div>
+        </div>
+        <textarea id="generatedCards" rows="10" cols="30" readonly></textarea>
     </div>
   </div>
   <script src="./renderer/main.js"></script>

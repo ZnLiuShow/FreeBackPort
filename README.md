@@ -42,6 +42,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 This is a free back-end management system for you to customize the secondary development of your own back-end management system."# FreeBackPort" 
 
+![欢迎加入](./img/qqun.png)
 
 your-project/
 ├── src/

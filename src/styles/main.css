@@ -6,43 +6,51 @@
     --text: #212529;
     --border-radius: 8px;
     --box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  }
-  
-  * {
+}
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', system-ui, sans-serif;
-  }
-  
-  body {
+}
+
+body {
     background: var(--background);
     color: var(--text);
     line-height: 1.6;
-  }
-
-  label {
-    display: inline-block;
-    margin-bottom: 5px;
-    font-weight: bold;
 }
 
-input[type="date"] {
+label {
+    display: inline-block;
+    margin-bottom: 0; /* 修改为 0，避免额外的底部间距 */
+    font-weight: bold;
+    /* 新增样式，统一高度和垂直对齐方式 */
+    height: 36px;
+    line-height: 36px;
+    vertical-align: middle;
+}
+
+input[type="date"],
+select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-bottom: 15px;
+    margin-bottom: 0; /* 修改为 0，避免额外的底部间距 */
     margin-right: 10px;
     box-sizing: border-box;
+    /* 新增样式，统一高度和垂直对齐方式 */
+    height: 36px;
+    vertical-align: middle;
 }
 
-  /* 记录总数显示样式 */
-  .record-count-label {
+/* 记录总数显示样式 */
+.record-count-label {
     display: block;
     text-align: right;
     margin-top: 10px;
     font-size: 0.9em;
-  }
+}
 
 /* 日期选择区域样式 */
 .date-range {
@@ -52,20 +60,20 @@ input[type="date"] {
     margin-top: 15px;
 }
 
-  .main-container {
+.main-container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 2rem;
-  }
-  
-  .tabs {
+}
+
+.tabs {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
     border-bottom: 2px solid #e9ecef;
-  }
-  
-  .tab {
+}
+
+.tab {
     padding: 0.8rem 1.5rem;
     background: none;
     border: none;
@@ -73,14 +81,14 @@ input[type="date"] {
     color: var(--secondary);
     position: relative;
     transition: color 0.3s;
-  }
-  
-  .tab.active {
+}
+
+.tab.active {
     color: var(--primary);
     font-weight: 600;
-  }
-  
-  .tab.active::after {
+}
+
+.tab.active::after {
     content: "";
     position: absolute;
     bottom: -2px;
@@ -88,78 +96,76 @@ input[type="date"] {
     right: 0;
     height: 2px;
     background: var(--primary);
-  }
-  
-  .tab-content {
+}
+
+.tab-content {
     display: none;
     padding: 1.5rem;
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-  }
-  
-  .tab-content.active {
+}
+
+.tab-content.active {
     display: block;
     animation: fadeIn 0.3s ease;
-  }
-  
-  @keyframes fadeIn {
+}
+
+@keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .data-table {
+}
+
+.data-table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5rem 0;
-  }
-  
-  .data-table th {
+}
+
+.data-table th {
     background: var(--primary);
     color: white;
     padding: 0.8rem;
     text-align: left;
-  }
-  
-  .data-table td {
+}
+
+.data-table td {
     padding: 0.8rem;
     border-bottom: 1px solid #e9ecef;
     font-size: 0.9em; /* 字体小些 */
-  }
-  
-  .data-table tr:hover {
+}
+
+.data-table tr:hover {
     background: #f8f9fa;
-  }
-  
- /* 查询表单样式 */
- .query-form {
+}
+
+/* 查询表单样式 */
+.query-form {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-  }
+}
 
-  .form-left {
+.form-left {
     display: flex;
     gap: 10px;
-  }
+}
 
-  .form-right {
+.form-right {
     display: flex;
-  }
+}
 
-
-  textarea#generatedCards {
+textarea#generatedCards {
     width: 100%;
     padding: 1rem;
     border: 2px solid #e9ecef;
     border-radius: var(--border-radius);
     margin-top: 1rem;
     font-family: monospace;
-  }
+}
 
-
-  /* 按钮样式 */
+/* 按钮样式 */
 button {
     padding: 10px 20px;
     border: none;
@@ -168,7 +174,10 @@ button {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 5px;
+    margin: 0px;
+    /* 新增样式，统一高度和垂直对齐方式 */
+    height: 36px;
+    vertical-align: middle;
 }
 
 button:hover {
@@ -177,16 +186,46 @@ button:hover {
 
 /* 下拉框样式 */
 select {
-    padding: 10px;
+    padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 5px;
+    margin: 0px;
 }
 
 /* 输入框样式 */
 input[type="number"] {
-    padding: 10px;
+    padding: 9px  10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 5px;
+    margin: 1px;
+}
+
+/* 管理标签页按钮布局样式 */
+.manage-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* 生成标签页表单样式 */
+.generate-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.left-group {
+    display: flex;
+    gap: 10px; /* 调整输入框和下拉框之间的间距 */
+}
+
+.right-group {
+    display: flex;
+    gap: 10px; /* 调整两个按钮之间的间距 */
 }
