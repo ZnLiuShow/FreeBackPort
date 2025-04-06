@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+  <link rel="stylesheet" href="./styles/main.css">
+  <title>管理系统</title>
+</head>
+<body>
+  <div class="main-container">
+    <!-- 标签导航 -->
+    <div class="tabs">
+      <button class="tab active" data-tab="query">查询</button>
+      <button class="tab" data-tab="manage">管理</button>
+      <button class="tab" data-tab="generate">生成</button>
+    </div>
+
+    <!-- 查询标签页 -->
+    <div id="query" class="tab-content active">
+      <!-- 查询表单内容 -->
+    </div>
+
+    <!-- 管理标签页 -->
+    <div id="manage" class="tab-content">
+      <!-- 管理表单内容 -->
+    </div>
+
+    <!-- 生成标签页 -->
+    <div id="generate" class="tab-content">
+      <!-- 生成表单内容 -->
+    </div>
+  </div>
+  <script src="./renderer/main.js"></script>
+</body>
+</html>
