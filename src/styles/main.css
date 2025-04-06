@@ -36,11 +36,13 @@ input[type="date"] {
     box-sizing: border-box;
 }
 
-/* 记录数量样式 */
-#recordCount {
-    color: #007BFF;
-    font-weight: bold;
-}
+  /* 记录总数显示样式 */
+  .record-count-label {
+    display: block;
+    text-align: right;
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
 
 /* 日期选择区域样式 */
 .date-range {
@@ -122,12 +124,31 @@ input[type="date"] {
   .data-table td {
     padding: 0.8rem;
     border-bottom: 1px solid #e9ecef;
+    font-size: 0.9em; /* 字体小些 */
   }
   
   .data-table tr:hover {
     background: #f8f9fa;
   }
   
+ /* 查询表单样式 */
+ .query-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .form-left {
+    display: flex;
+    gap: 10px;
+  }
+
+  .form-right {
+    display: flex;
+  }
+
+
   textarea#generatedCards {
     width: 100%;
     padding: 1rem;

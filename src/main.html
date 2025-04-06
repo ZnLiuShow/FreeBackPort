@@ -17,31 +17,38 @@
 
     <!-- 查询标签页 -->
     <div id="query" class="tab-content active">
-      <label for="startDate">起始日期:</label>
-      <input type="date" id="startDate">
-      <label for="endDate">终止日期:</label>
-      <input type="date" id="endDate">
-      <select id="dateType">
-        <option value="activationTime">激活时间</option>
-        <option value="generationTime">生成时间</option>
-      </select>
-      <button>查询</button>
-      <table class="data-table">
+    <!-- 查询表单内容 -->
+    <div class="query-form">
+        <div class="form-left">
+        <label for="startDate">起始日期:</label>
+        <input type="date" id="startDate">
+        <label for="endDate">终止日期:</label>
+        <input type="date" id="endDate">
+        <select id="dateType">
+            <option value="activationTime">激活时间</option>
+            <option value="generationTime">生成时间</option>
+        </select>
+        </div>
+        <div class="form-right">
+        <button>查询</button>
+        </div>
+    </div>
+    <table class="data-table">
         <thead>
-          <tr>
-            <th>序号</th>
-            <th>卡密</th>
-            <th>生成时间</th>
-            <th>激活时间</th>
-            <th>生成者</th>
-            <th>使用者</th>
-          </tr>
+        <tr>
+            <th style="width: 10%;">序号</th>
+            <th style="width: 40%;">卡密</th>
+            <th style="width: 15%;">生成时间</th>
+            <th style="width: 15%;">激活时间</th>
+            <th style="width: 10%;">生成者</th>
+            <th style="width: 10%;">使用者</th>
+        </tr>
         </thead>
         <tbody>
-          <!-- 表格数据 -->
+        <!-- 表格数据行 -->
         </tbody>
-      </table>
-      <label>共计 <span id="recordCount">0</span> 条记录</label>
+    </table>
+    <label class="record-count-label">共计 <span id="recordCount">0</span> 条记录</label>
     </div>
 
     <!-- 管理标签页 -->
