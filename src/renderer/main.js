@@ -3,16 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
         tab.addEventListener('click', () => {
             const targetTab = tab.dataset.tab;
 
-            // 移除所有标签和内容的激活状态
-            tabs.forEach(t => t.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
+            // 移除所有标签的激活状态
+            tabs.forEach((t) => t.classList.remove('active'));
+            // 隐藏所有标签页内容
+            tabContents.forEach((content) => content.classList.remove('active'));
 
-            // 添加当前点击标签和对应内容的激活状态
+            // 添加当前点击标签的激活状态
             tab.classList.add('active');
+            // 显示对应的标签页内容
             document.getElementById(targetTab).classList.add('active');
         });
     });
