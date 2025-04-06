@@ -17,17 +17,64 @@
 
     <!-- 查询标签页 -->
     <div id="query" class="tab-content active">
-      <!-- 查询表单内容 -->
+      <label for="startDate">起始日期:</label>
+      <input type="date" id="startDate">
+      <label for="endDate">终止日期:</label>
+      <input type="date" id="endDate">
+      <select id="dateType">
+        <option value="activationTime">激活时间</option>
+        <option value="generationTime">生成时间</option>
+      </select>
+      <button>查询</button>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>卡密</th>
+            <th>生成时间</th>
+            <th>激活时间</th>
+            <th>生成者</th>
+            <th>使用者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 表格数据 -->
+        </tbody>
+      </table>
+      <label>共计 <span id="recordCount">0</span> 条记录</label>
     </div>
 
     <!-- 管理标签页 -->
     <div id="manage" class="tab-content">
-      <!-- 管理表单内容 -->
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>用户</th>
+            <th>账户创建时间</th>
+            <th>服务时长</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 表格数据 -->
+        </tbody>
+      </table>
+      <button>一键清理所有过期用户</button>
+      <button>一键操作所有</button>
     </div>
 
     <!-- 生成标签页 -->
     <div id="generate" class="tab-content">
-      <!-- 生成表单内容 -->
+      <select id="cardType">
+        <option value="dayCard">天卡</option>
+        <option value="weekCard">周卡</option>
+        <option value="monthCard">月卡</option>
+        <option value="quarterCard">季卡</option>
+      </select>
+      <input type="number" id="generateCount" placeholder="生成数量">
+      <button>生成</button>
+      <textarea id="generatedCards" rows="10" cols="30" readonly></textarea>
     </div>
   </div>
   <script src="./renderer/main.js"></script>
