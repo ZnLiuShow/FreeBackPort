@@ -1,9 +1,12 @@
 
+const crypto = require('crypto');
 
-const  hostaddr ="http://localhost:3000"
-const  netdata = {
+
+module.exports = { 
+  hostaddr:"http://localhost:3000", 
+  netdata:{
     mytoken: "",
     aeskey: null,
-  };
-
-module.exports = { hostaddr, netdata};
+  },
+  keyBuffer: crypto.randomBytes(32)
+};
