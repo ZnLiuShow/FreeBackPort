@@ -2,6 +2,9 @@
 const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata,keyBuffer} = require('./until/host.js');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
+const ini = require('ini');
 
 async function sendEncryptRequest() {  
   // 转换为Base64字符串

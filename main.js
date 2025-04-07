@@ -2,6 +2,8 @@
 // Welcome to qq group: 1030115250
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
+const fs = require('fs');
+const ini = require('ini');
 
 // 引入各个模块
 const { sendEncryptRequest, login } = require('./admin/login.js');
@@ -33,6 +35,43 @@ function createWindow () {
     console.log('加载路径:', fullPath); // 添加路径输出
     mainWindow.loadFile(`src/${path}`)
   })
+
+  // 监听读取 app.ini 文件的请求
+  ipcMain.handle('read-app-ini', async () => {
+    try {
+        const iniPath = path.join(__dirname, 'app.ini');
+        const iniContent = fs.readFileSync(iniPath, 'utf-8');
+        return ini.parse(iniContent);
+    } catch (error) {
+        console.error('读取 app.ini 文件出错:', error);
+        return {};
+    }
+  });
+
+  // 监听写入 app.ini 文件的请求
+  ipcMain.handle('write-app-ini', async (event, config) => {
+    try {
+        const iniPath = path.join(__dirname, 'app.ini');
+        const iniContent = ini.stringify(config);
+        fs.writeFileSync(iniPath, iniContent);
+        return true;
+    } catch (error) {
+        console.error('写入 app.ini 文件出错:', error);
+        return false;
+    }
+  });
+
+  // 监听清空 app.ini 文件的请求
+  ipcMain.handle('clear-app-ini', async () => {
+    try {
+        const iniPath = path.join(__dirname, 'app.ini');
+        fs.writeFileSync(iniPath, '');
+        return true;
+    } catch (error) {
+        console.error('清空 app.ini 文件出错:', error);
+        return false;
+    }
+  });
 
   // 监听渲染进程的消息
   ipcMain.handle('sendEncryptRequest', sendEncryptRequest);

@@ -11,13 +11,18 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
   navigateTo: (path) => ipcRenderer.send('navigate-to', path),
+
+  readAppIni: () => ipcRenderer.invoke('read-app-ini'),
+  writeAppIni: (config) => ipcRenderer.invoke('write-app-ini', config),
+  clearAppIni: () => ipcRenderer.invoke('clear-app-ini'),
+
   sendEncryptRequest: () => ipcRenderer.invoke('sendEncryptRequest'),
-    login: (username, password) => ipcRenderer.invoke('login', username, password),
-    changepassword: (username, newpassword, safepassword) => ipcRenderer.invoke('changepassword', username, newpassword, safepassword),
-    genKeyCards: (token, num, type) => ipcRenderer.invoke('genKeyCards', token, num, type),
-    manageUsers: (operations) => ipcRenderer.invoke('manageUsers', operations),
-    queryGenKeyCards: (token, begin, end) => ipcRenderer.invoke('queryGenKeyCards', token, begin, end),
-    queryActivateKeyCards: (token, begin, end) => ipcRenderer.invoke('queryActivateKeyCards', token, begin, end),
+  login: (username, password) => ipcRenderer.invoke('login', username, password),
+  changepassword: (username, newpassword, safepassword) => ipcRenderer.invoke('changepassword', username, newpassword, safepassword),
+  genKeyCards: (token, num, type) => ipcRenderer.invoke('genKeyCards', token, num, type),
+  manageUsers: (operations) => ipcRenderer.invoke('manageUsers', operations),
+  queryGenKeyCards: (token, begin, end) => ipcRenderer.invoke('queryGenKeyCards', token, begin, end),
+  queryActivateKeyCards: (token, begin, end) => ipcRenderer.invoke('queryActivateKeyCards', token, begin, end),
 })
 
 window.addEventListener('DOMContentLoaded', () => {
