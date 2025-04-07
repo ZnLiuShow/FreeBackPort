@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
 // Welcome to qq group: 1030115250
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('node:path')
 const fs = require('fs');
 const ini = require('ini');
