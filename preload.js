@@ -19,7 +19,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendEncryptRequest: () => ipcRenderer.invoke('sendEncryptRequest'),
   login: (username, password) => ipcRenderer.invoke('login', username, password),
   changepassword: (username, newpassword, safepassword) => ipcRenderer.invoke('changepassword', username, newpassword, safepassword),
-  genKeyCards: (token, num, type) => ipcRenderer.invoke('genKeyCards', token, num, type),
+  genKeyCards: ( num, type) => ipcRenderer.invoke('genKeyCards',  num, type),
   manageUsers: (operations) => ipcRenderer.invoke('manageUsers', operations),
   queryGenKeyCards: (token, begin, end) => ipcRenderer.invoke('queryGenKeyCards', token, begin, end),
   queryActivateKeyCards: (token, begin, end) => ipcRenderer.invoke('queryActivateKeyCards', token, begin, end),

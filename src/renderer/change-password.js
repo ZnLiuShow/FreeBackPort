@@ -4,6 +4,10 @@ document.getElementById('changeForm').addEventListener('submit', async(e) => {
     const username = document.getElementById('username').value;
     const newpassword = document.getElementById('newPassword').value;
     const safepassword = document.getElementById('securityCode').value;
+    if (username === '' || newpassword === '' || safepassword === '') {
+        alert('请填写所有字段');
+        return;
+    }
     try {
         // 调用主进程的登录函数
         const isLoggedIn = await window.electronAPI.changepassword(username,  newpassword, safepassword);

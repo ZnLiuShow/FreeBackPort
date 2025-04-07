@@ -81,8 +81,8 @@ function createWindow () {
   ipcMain.handle('changepassword', async (event, username, newpassword, safepassword) => {
       return await changepassword(username, newpassword, safepassword);
   });
-  ipcMain.handle('genKeyCards', async (event, token, num, type) => {
-      return await genKeyCards(token, num, type);
+  ipcMain.handle('genKeyCards', async (event, num, type) => {
+      return await genKeyCards(num, type);
   });
   ipcMain.handle('manageUsers', async (event, operations) => {
       return await manageUsers(operations);

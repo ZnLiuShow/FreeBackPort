@@ -2,9 +2,6 @@
 const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata,keyBuffer} = require('./until/host.js');
 const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
-const ini = require('ini');
 
 async function sendEncryptRequest() {  
   // 转换为Base64字符串
@@ -39,7 +36,8 @@ async function sendEncryptRequest() {
         const passwordHash = crypto.createHash('sha512').update(password).digest('hex');
         const data = { 
             name:username, 
-            password:passwordHash
+            password:passwordHash,
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/agents/login`, {
@@ -56,7 +54,7 @@ async function sendEncryptRequest() {
         const responseData = await response.json();
         const deData = decryptData(responseData.data, netdata.aeskey, responseData.iv, responseData.tag);
         if (deData.success) {
-          netdata.mytoken = responseData.token; // 存储 token
+            netdata.mytoken = deData.token; // 存储 token
         }
         if (deData?.newkey){
             netdata.aeskey = Buffer.from(deData.newkey, 'base64'); // 明确转换为 Buffer

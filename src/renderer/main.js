@@ -121,20 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const generateButton = generateTab.querySelector('button');
         const generatedCardsTextarea = generateTab.querySelector('#generatedCards');
 
-        generateButton.addEventListener('click', () => {
-            const cardType = cardTypeSelect.value;
-            const generateCount = parseInt(generateCountInput.value);
-
-            // 这里可以添加生成卡密的逻辑
-            // 示例：模拟生成卡密
-            const generatedCards = [];
-            for (let i = 0; i < generateCount; i++) {
-                const cardCode = Math.random().toString(36).substr(2, 8);
-                generatedCards.push(`${cardType}-${cardCode}`);
+        generateButton.addEventListener('click', async() => {
+            try {
+                const cardType = cardTypeSelect.value;
+                const generateCount = parseInt(generateCountInput.value);
+                // 定义卡类型和对应时长的映射
+                const cardDurationMap = {
+                    "hourCard": 1,
+                    "dayCard": 24,
+                    "weekCard": 24 * 7,
+                    "monthCard": 24 * 30,
+                    "quarterCard": 24 * 120,
+                    "yearCard": 24 * 360
+                };
+                const d_type = cardDurationMap[cardType];
+                const cards = await window.electronAPI.genKeyCards(generateCount,d_type);
+                if (!cards?.status) {
+                    throw new Error(`Failed to generate encryption`);            
+                }      
+                generatedCardsTextarea.value = cards.keys.join('\n');
             }
-
-            // 显示生成的卡密
-            generatedCardsTextarea.value = generatedCards.join('\n');
+            catch (error) {
+                console.error('生成卡密出错:', error);
+                alert(`生成卡密出错: ${error.message}`); 
+            }            
         });
     }
 });

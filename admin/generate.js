@@ -3,12 +3,13 @@ const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata} = require('./until/host.js');
 
 
-async function genKeyCards(token, num, type) {
+async function genKeyCards(num, type) {
     try {
         const data = { 
-            token:token, 
+            token:netdata.mytoken, 
             num:num,
             type:type,
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/cards`, {

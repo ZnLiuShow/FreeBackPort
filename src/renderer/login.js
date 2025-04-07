@@ -1,5 +1,6 @@
 // Welcome to qq group: 1030115250
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded', async (e) => {
+    e.preventDefault();
     try {
         const config = await window.electronAPI.readAppIni();
         if (config.login) {
@@ -15,6 +16,10 @@ document.getElementById('loginForm').addEventListener('submit',  async(e) => {
     e.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
+    if (username === '' || password === '' ) {
+        alert('请填写所有字段');
+        return;
+    }
     try {
         // 调用主进程的登录函数
         const isLoggedIn = await window.electronAPI.login(username, password);

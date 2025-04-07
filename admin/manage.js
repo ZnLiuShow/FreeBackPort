@@ -5,8 +5,9 @@ const {hostaddr, netdata} = require('./until/host.js');
 async function manageUsers(operations) {
     try {
         const data = { 
-            token:token, 
+            token:netdata.mytoken, 
             operations:operations,
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/agents/query`, {

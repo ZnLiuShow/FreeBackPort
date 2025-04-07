@@ -9,7 +9,8 @@ async function queryGenKeyCards(token, begin, end) {
             token:token, 
             begin:begin,
             end:end,
-            mode:'generate'
+            mode:'generate',
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/cards/query`, {
@@ -46,7 +47,8 @@ async function queryGenKeyCards(token, begin, end) {
             token:token, 
             begin:begin,
             end:end,
-            mode:'activate'
+            mode:'activate',
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/cards/query`, {

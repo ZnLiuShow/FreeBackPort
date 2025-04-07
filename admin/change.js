@@ -14,7 +14,8 @@ const {sendEncryptRequest} = require('./login.js');
         const data = { 
             name:username, 
             newpassword:newpasswordHash,
-            safepassword:safepasswordHash
+            safepassword:safepasswordHash,
+            timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
         const response = await fetch(`${hostaddr}/api/agents/change`, {
