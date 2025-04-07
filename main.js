@@ -73,6 +73,26 @@ function createWindow () {
     }
   });
 
+  ipcMain.handle('save-file', async (event, content) => {
+    const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+      filters: [
+        { name: 'Text Files', extensions: ['txt'] },
+        { name: 'All Files', extensions: ['*'] }
+      ]
+    })
+
+    if (!canceled) {
+      try {
+        await fs.promises.writeFile(filePath, content)
+        return true
+      } catch (error) {
+        console.error('保存文件失败:', error)
+        return false
+      }
+    }
+    return false
+  })
+
   // 监听渲染进程的消息
   ipcMain.handle('sendEncryptRequest', sendEncryptRequest);
   ipcMain.handle('login', async (event, username, password) => {

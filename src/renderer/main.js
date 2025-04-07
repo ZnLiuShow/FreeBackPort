@@ -118,8 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (generateTab) {
         const cardTypeSelect = generateTab.querySelector('#cardType');
         const generateCountInput = generateTab.querySelector('#generateCount');
-        const generateButton = generateTab.querySelector('button');
+        const generateButton = generateTab.querySelector('#generateButton');
         const generatedCardsTextarea = generateTab.querySelector('#generatedCards');
+        const saveButton = generateTab.querySelector('#saveButton');
 
         generateButton.addEventListener('click', async() => {
             try {
@@ -145,6 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('生成卡密出错:', error);
                 alert(`生成卡密出错: ${error.message}`); 
             }            
+        });
+
+        saveButton.addEventListener('click', async () => {
+            const content = generatedCardsTextarea.value;
+            const result = await window.electronAPI.saveFile(content);
+            if (result) {
+                alert('文件保存成功');
+            } else {
+                alert('文件保存失败');
+            }
         });
     }
 });
