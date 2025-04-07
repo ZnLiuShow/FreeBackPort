@@ -35,12 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const endDate = endDateInput.value;
             const dateType = dateTypeSelect.value;
             try {
+                const startTimestamp = new Date(`${startDate}T00:00:00`).getTime();
+                const endTimestamp = new Date(`${endDate}T23:59:59`).getTime() + 1;
+
                 var queryParams = null;
-                if (dateType === 'generation') {
-                    queryParams = await window.electronAPI.queryGenKeyCards(startDate, endDate);
+                if (dateType === 'generate') {
+                    queryParams = await window.electronAPI.queryGenKeyCards(startTimestamp, endTimestamp);
                 }
-                else if (dateType === 'activation') {
-                    queryParams = await window.electronAPI.queryActivateKeyCards(startDate, endDate); 
+                else if (dateType === 'activate') {
+                    queryParams = await window.electronAPI.queryActivateKeyCards(startTimestamp, endTimestamp); 
                 }
                 else{
                     throw new Error('查询类型错误');
@@ -56,21 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 queryTableBody.innerHTML = '';
 
                 // 填充表格数据
-                mockData.forEach(item => {
+                queryParams.cards.forEach((item, index)  => {
                     const row = document.createElement('tr');
+                    // 将时间戳转换为日期格式
+                    const createdDate = new Date(item.created_at * 1000).toLocaleDateString();
+                    const activatedDate = item.activated_at ? new Date(item.activated_at * 1000).toLocaleDateString() : 'N/A';
+                    
                     row.innerHTML = `
-                        <td>${item.id}</td>
-                        <td>${item.cardCode}</td>
-                        <td>${item.generationTime}</td>
-                        <td>${item.activationTime}</td>
-                        <td>${item.generator}</td>
-                        <td>${item.user}</td>
+                        <td>${index+1}</td>
+                        <td>${item.card_key}</td>
+                        <td>${createdDate}</td>
+                        <td>${activatedDate}</td>
+                        <td>${item.producer_agent}</td>
+                        <td>${item.consumer_user}</td>
                     `;
                     queryTableBody.appendChild(row);
                 });
 
                 // 更新记录数量
-                recordCountLabel.textContent = mockData.length;
+                recordCountLabel.textContent = queryParams.cards.length;
             } catch (error) {
                 console.error('查询出错:', error);                
             }            
