@@ -49,13 +49,13 @@ This is a free back-end management system for you to customize the secondary dev
 project/
 ├── admin/
 │   ├── until/
-│   │   ├── aesnet.js
-│   │   └── host.js 
-│   ├── change.js
-│   ├── login.js  
-│   ├── generate.js  
-│   ├── manage.js  
-│   └── query.js
+│   │   ├── aesnet.js              # AES加密解密工具
+│   │   └── host.js                # 主机管理工具
+│   ├── change.js                  # 更改密码脚本
+│   ├── login.js                   # 登录脚本 
+│   ├── generate.js                # 生成脚本  
+│   ├── manage.js                  # 管理脚本
+│   └── query.js                   # 查询脚本
 ├── src/
 │   ├── login.html                 # 登录主界面
 │   ├── change-password.html       # 修改密码界面
@@ -69,4 +69,4 @@ project/
 │       ├── login.js               # 登录界面逻辑
 │       └── main.js                # 主界面逻辑
 ├── main.js                        # Electron主进程
-└──preload.js
+└──preload.js                      # Electron预加载脚本
