@@ -4,6 +4,7 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('node:path')
 const fs = require('fs');
 const ini = require('ini');
+const crc64 = require('crc64-ecma');
 
 // 引入各个模块
 const { sendEncryptRequest, login } = require('./admin/login.js');
@@ -92,6 +93,11 @@ function createWindow () {
     }
     return false
   })
+
+  // 处理 CRC64 计算请求
+  ipcMain.handle('calculate-crc64', (event, input) => {
+    return BigInt(crc64.crc64(input));
+  });
 
   // 监听渲染进程的消息
   ipcMain.handle('sendEncryptRequest', sendEncryptRequest);

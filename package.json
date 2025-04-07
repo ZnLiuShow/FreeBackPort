@@ -19,6 +19,7 @@
     "electron": "^34.1.1"
   },
   "dependencies": {
+    "crc64-ecma": "^2.0.0",
     "ini": "^5.0.0"
   }
 }

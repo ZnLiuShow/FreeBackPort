@@ -49,12 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('查询类型错误');
                 }
                 console.log(queryParams);
-                // 示例：模拟查询结果
-                const mockData = [
-                    { id: 1, cardCode: 'ABC123', generationTime: '2024-01-01', activationTime: '2024-01-02', generator: 'User1', user: 'User2' },
-                    { id: 2, cardCode: 'DEF456', generationTime: '2024-01-03', activationTime: '2024-01-04', generator: 'User3', user: 'User4' }
-                ];
-
                 // 清空表格内容
                 queryTableBody.innerHTML = '';
 
@@ -62,12 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 queryParams.cards.forEach((item, index)  => {
                     const row = document.createElement('tr');
                     // 将时间戳转换为日期格式
-                    const createdDate = new Date(item.created_at * 1000).toLocaleDateString();
-                    const activatedDate = item.activated_at ? new Date(item.activated_at * 1000).toLocaleDateString() : 'N/A';
-                    
+                    const createdDate = new Date(item.created_at).toLocaleDateString();
+                    const activatedDate = item.activated_at ? new Date(item.activated_at).toLocaleDateString() : 'N/A';
+
                     row.innerHTML = `
                         <td>${index+1}</td>
-                        <td>${item.card_key}</td>
+                        <td class="truncate" title="${item.card_key}">${item.card_key}</td>
                         <td>${createdDate}</td>
                         <td>${activatedDate}</td>
                         <td>${item.producer_agent}</td>

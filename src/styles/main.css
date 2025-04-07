@@ -66,6 +66,14 @@ select {
     padding: 2rem;
 }
 
+/* 在 main.css 中添加以下代码 */
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px; /* 可根据实际需求调整最大宽度 */
+}
+
 .tabs {
     display: flex;
     gap: 1rem;
@@ -116,6 +124,11 @@ select {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.table-container {
+    max-height: 300px; /* 设置最大高度，可以根据实际需求调整 */
+    overflow-y: auto; /* 当内容超出容器高度时，显示垂直滚动条 */
+}
+
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -137,6 +150,14 @@ select {
 
 .data-table tr:hover {
     background: #f8f9fa;
+}
+
+/* 可以根据需要调整表头的样式，使其固定 */
+.data-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--primary);
+    z-index: 1;
 }
 
 /* 查询表单样式 */

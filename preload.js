@@ -16,7 +16,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   writeAppIni: (config) => ipcRenderer.invoke('write-app-ini', config),
   clearAppIni: () => ipcRenderer.invoke('clear-app-ini'),
   saveFile: (content) => ipcRenderer.invoke('save-file', content),
-
+  calculateCRC64: (input) => ipcRenderer.invoke('calculate-crc64', input),
+  
   sendEncryptRequest: () => ipcRenderer.invoke('sendEncryptRequest'),
   login: (username, password) => ipcRenderer.invoke('login', username, password),
   changepassword: (username, newpassword, safepassword) => ipcRenderer.invoke('changepassword', username, newpassword, safepassword),
