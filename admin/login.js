@@ -67,4 +67,4 @@ async function sendEncryptRequest() {
   }
 
   module.exports = {sendEncryptRequest,login};
-  // login('testAdmin', 'MySecret123')
+  // login('testAdmin', 'MySecret1234')

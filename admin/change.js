@@ -41,4 +41,6 @@ const {sendEncryptRequest} = require('./login.js');
     }
   }
 
+  // changepassword('testAdmin', 'MySecret1234','Safe456');
+
   module.exports = {changepassword};
