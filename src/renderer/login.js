@@ -1,8 +1,21 @@
 // Welcome to qq group: 1030115250
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+document.getElementById('loginForm').addEventListener('submit',  async(e) => {
     e.preventDefault();
-    // 这里可以添加验证逻辑
-    window.electronAPI.navigateTo('main.html');
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    try {
+        // 调用主进程的登录函数
+        const isLoggedIn = await window.electronAPI.login(username, password);
+        if (isLoggedIn) {
+            window.electronAPI.navigateTo('main.html');
+        } else {
+            console.error('登录失败，请检查用户名和密码');
+            alert('登录失败，请检查用户名和密码');
+        }
+    } catch (error) {       
+        console.error('登录出错:', error);
+        alert(`n${error.message}`);
+    }
 });
 
 document.getElementById('changePasswordLink').addEventListener('click', (e) => {

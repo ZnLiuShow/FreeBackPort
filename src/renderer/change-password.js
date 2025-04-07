@@ -1,7 +1,21 @@
 // Welcome to qq group: 1030115250
-document.getElementById('changeForm').addEventListener('submit', (e) => {
+document.getElementById('changeForm').addEventListener('submit', async(e) => {
     e.preventDefault();
-    console.log('更改密码事件触发'); // 添加调试输出
-    // 这里可以添加更改密码的逻辑
-    window.electronAPI.navigateTo('login.html');
+    const username = document.getElementById('username').value;
+    const newpassword = document.getElementById('newPassword').value;
+    const safepassword = document.getElementById('securityCode').value;
+    try {
+        // 调用主进程的登录函数
+        const isLoggedIn = await window.electronAPI.changepassword(username,  newpassword, safepassword);
+        if (isLoggedIn) {
+            alert('修改密码成功,请重新登录');
+            window.electronAPI.navigateTo('login.html');
+        } else {
+            console.error('修改密码失败');
+            alert('修改密码失败');
+        }
+    } catch (error) {       
+        console.error('修改密码出错:', error);
+        alert(`${error.message}`);
+    }
 });
