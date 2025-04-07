@@ -1,8 +1,8 @@
 const {decryptData,encryptJSON} = require('./until/aesnet.js');
-const {hostaddr, netdata,keyBuffer} = require('./until/host.js');
-const crypto = require('crypto');
+const {hostaddr, netdata} = require('./until/host.js');
 
-async function genKeyCards(token, num,type) {
+
+async function genKeyCards(token, num, type) {
     try {
         const data = { 
             token:token, 
@@ -29,11 +29,13 @@ async function genKeyCards(token, num,type) {
         if (deData?.newkey){
             netdata.aeskey = Buffer.from(deData.newkey, 'base64'); // 明确转换为 Buffer
         }
-        console.log('登录成功:', deData);
+        console.log('生成卡密成功:', deData);
         return {status:deData.success,keys:deData.keys};
     }
     catch (error) {
-      console.error('登录失败:', error); 
+      console.error('生成卡密失败:', error); 
       throw error;
     }
   }
+
+  module.exports = {genKeyCards};
