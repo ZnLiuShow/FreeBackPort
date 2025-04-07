@@ -1,3 +1,4 @@
+// Welcome to qq group: 1030115250
 const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata,keyBuffer} = require('./until/host.js');
 const crypto = require('crypto');

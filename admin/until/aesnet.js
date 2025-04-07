@@ -1,3 +1,4 @@
+// Welcome to qq group: 1030115250
 const crypto = require('crypto');
 
 const encryptJSON = (data,currentKey) => {

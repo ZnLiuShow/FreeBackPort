@@ -3,6 +3,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 
+// 引入各个模块
+const { sendEncryptRequest, login } = require('./admin/login.js');
+const { changepassword } = require('./admin/change.js');
+const { genKeyCards } = require('./admin/generate.js');
+const { manageUsers } = require('./admin/manage.js');
+const { queryGenKeyCards, queryActivateKeyCards } = require('./admin/query.js');
+
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -27,6 +34,26 @@ function createWindow () {
     mainWindow.loadFile(`src/${path}`)
   })
 
+  // 监听渲染进程的消息
+  ipcMain.handle('sendEncryptRequest', sendEncryptRequest);
+  ipcMain.handle('login', async (event, username, password) => {
+      return await login(username, password);
+  });
+  ipcMain.handle('changepassword', async (event, username, newpassword, safepassword) => {
+      return await changepassword(username, newpassword, safepassword);
+  });
+  ipcMain.handle('genKeyCards', async (event, token, num, type) => {
+      return await genKeyCards(token, num, type);
+  });
+  ipcMain.handle('manageUsers', async (event, operations) => {
+      return await manageUsers(operations);
+  });
+  ipcMain.handle('queryGenKeyCards', async (event, token, begin, end) => {
+      return await queryGenKeyCards(token, begin, end);
+  });
+  ipcMain.handle('queryActivateKeyCards', async (event, token, begin, end) => {
+      return await queryActivateKeyCards(token, begin, end);
+  });
 }
 
 // This method will be called when Electron has finished
