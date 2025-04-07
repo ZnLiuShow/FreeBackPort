@@ -30,37 +30,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const recordCountLabel = queryTab.querySelector('#recordCount');
         const queryTableBody = queryTab.querySelector('tbody');
 
-        queryButton.addEventListener('click', () => {
+        queryButton.addEventListener('click', async() => {
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
             const dateType = dateTypeSelect.value;
+            try {
+                var queryParams = null;
+                if (dateType === 'generation') {
+                    queryParams = await window.electronAPI.queryGenKeyCards(startDate, endDate);
+                }
+                else if (dateType === 'activation') {
+                    queryParams = await window.electronAPI.queryActivateKeyCards(startDate, endDate); 
+                }
+                else{
+                    throw new Error('查询类型错误');
+                }
+                console.log(queryParams);
+                // 示例：模拟查询结果
+                const mockData = [
+                    { id: 1, cardCode: 'ABC123', generationTime: '2024-01-01', activationTime: '2024-01-02', generator: 'User1', user: 'User2' },
+                    { id: 2, cardCode: 'DEF456', generationTime: '2024-01-03', activationTime: '2024-01-04', generator: 'User3', user: 'User4' }
+                ];
 
-            // 这里可以添加查询逻辑，例如发送请求到服务器获取数据
-            // 示例：模拟查询结果
-            const mockData = [
-                { id: 1, cardCode: 'ABC123', generationTime: '2024-01-01', activationTime: '2024-01-02', generator: 'User1', user: 'User2' },
-                { id: 2, cardCode: 'DEF456', generationTime: '2024-01-03', activationTime: '2024-01-04', generator: 'User3', user: 'User4' }
-            ];
+                // 清空表格内容
+                queryTableBody.innerHTML = '';
 
-            // 清空表格内容
-            queryTableBody.innerHTML = '';
+                // 填充表格数据
+                mockData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.cardCode}</td>
+                        <td>${item.generationTime}</td>
+                        <td>${item.activationTime}</td>
+                        <td>${item.generator}</td>
+                        <td>${item.user}</td>
+                    `;
+                    queryTableBody.appendChild(row);
+                });
 
-            // 填充表格数据
-            mockData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.id}</td>
-                    <td>${item.cardCode}</td>
-                    <td>${item.generationTime}</td>
-                    <td>${item.activationTime}</td>
-                    <td>${item.generator}</td>
-                    <td>${item.user}</td>
-                `;
-                queryTableBody.appendChild(row);
-            });
-
-            // 更新记录数量
-            recordCountLabel.textContent = mockData.length;
+                // 更新记录数量
+                recordCountLabel.textContent = mockData.length;
+            } catch (error) {
+                console.error('查询出错:', error);                
+            }            
         });
     }
 

@@ -3,10 +3,10 @@ const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata} = require('./until/host.js');
 
 
-async function queryGenKeyCards(token, begin, end) {
+async function queryGenKeyCards( begin, end) {
     try {
         const data = { 
-            token:token, 
+            token:netdata.mytoken, 
             begin:begin,
             end:end,
             mode:'generate',
@@ -41,10 +41,10 @@ async function queryGenKeyCards(token, begin, end) {
     }
   }
 
-  async function queryActivateKeyCards(token, begin, end) {
+  async function queryActivateKeyCards( begin, end) {
     try {
         const data = { 
-            token:token, 
+            token:netdata.mytoken, 
             begin:begin,
             end:end,
             mode:'activate',

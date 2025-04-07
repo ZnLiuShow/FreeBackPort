@@ -107,11 +107,11 @@ function createWindow () {
   ipcMain.handle('manageUsers', async (event, operations) => {
       return await manageUsers(operations);
   });
-  ipcMain.handle('queryGenKeyCards', async (event, token, begin, end) => {
-      return await queryGenKeyCards(token, begin, end);
+  ipcMain.handle('queryGenKeyCards', async (event, begin, end) => {
+      return await queryGenKeyCards(begin, end);
   });
-  ipcMain.handle('queryActivateKeyCards', async (event, token, begin, end) => {
-      return await queryActivateKeyCards(token, begin, end);
+  ipcMain.handle('queryActivateKeyCards', async (event, begin, end) => {
+      return await queryActivateKeyCards(begin, end);
   });
 }
 

@@ -16,14 +16,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   writeAppIni: (config) => ipcRenderer.invoke('write-app-ini', config),
   clearAppIni: () => ipcRenderer.invoke('clear-app-ini'),
   saveFile: (content) => ipcRenderer.invoke('save-file', content),
-  
+
   sendEncryptRequest: () => ipcRenderer.invoke('sendEncryptRequest'),
   login: (username, password) => ipcRenderer.invoke('login', username, password),
   changepassword: (username, newpassword, safepassword) => ipcRenderer.invoke('changepassword', username, newpassword, safepassword),
   genKeyCards: ( num, type) => ipcRenderer.invoke('genKeyCards',  num, type),
   manageUsers: (operations) => ipcRenderer.invoke('manageUsers', operations),
-  queryGenKeyCards: (token, begin, end) => ipcRenderer.invoke('queryGenKeyCards', token, begin, end),
-  queryActivateKeyCards: (token, begin, end) => ipcRenderer.invoke('queryActivateKeyCards', token, begin, end),
+  queryGenKeyCards: (begin, end) => ipcRenderer.invoke('queryGenKeyCards',  begin, end),
+  queryActivateKeyCards: (begin, end) => ipcRenderer.invoke('queryActivateKeyCards', begin, end),
 })
 
 window.addEventListener('DOMContentLoaded', () => {
