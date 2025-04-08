@@ -1,7 +1,12 @@
 // Welcome to qq group: 1030115250
 const {decryptData,encryptJSON} = require('./until/aesnet.js');
 const {hostaddr, netdata} = require('./until/host.js');
-
+/*
+{
+usercrc64: BigInt("18446744073709551615"), // 用户的 CRC64 校验码，用于标识用户的身份。
+operate: [0, 1, 2].includes
+}
+*/
 async function manageUsers(operations) {
     try {
         const data = { 
