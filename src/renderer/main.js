@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
+    // 存储初始化状态
+    const initialStates = {};
     function populateManageTable(manageTableBody, manageMockData) {
         manageMockData.forEach((item, index)  => {
             const row = document.createElement('tr');
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = optionText;
                 if (optionText === statusOptions[service_status]) {
                     option.selected = true;
+                    initialStates[item.username] = statusOptions[service_status];
                 }
                 statusSelect.appendChild(option);
             });
@@ -123,9 +125,35 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('清理所有过期用户');
         });
 
-        operateAllButton.addEventListener('click', () => {
-            // 这里可以添加一键操作所有的逻辑
-            console.log('一键操作所有');
+        operateAllButton.addEventListener('click', async() => {
+            const statusMapping = {
+                "正常": 0,
+                "封禁": 1,
+                "删除": 2
+            };
+            const changedUsers = [];
+            const rows = manageTableBody.querySelectorAll('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const username = row.cells[1].textContent;
+                const select = row.querySelector('select');
+                const currentStatus = select.value;     
+                if (currentStatus !== initialStates[username]) {
+                    const usercrc64 = await window.electronAPI.calculateCRC64(username);
+                    changedUsers.push({ 
+                        usercrc64: usercrc64.toString(),
+                        operate: statusMapping[currentStatus] 
+                    });
+                }
+            }       
+            console.log('变动的用户信息:', changedUsers);
+            const result =  await window.electronAPI.manageUsers(changedUsers);
+            if (result.status) {
+                alert(`操作成功: ${result.operand}`); 
+            }
+            const newManageData = await window.electronAPI.queryUsers("all"); 
+            manageTableBody.innerHTML = '';
+            populateManageTable(manageTableBody, newManageData.users);
         });
 
         queryUsersButton.addEventListener('click', async() => {
