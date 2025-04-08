@@ -80,25 +80,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function populateManageTable(manageTableBody, manageMockData) {
-        manageMockData.forEach(item => {
+        manageMockData.forEach((item, index)  => {
             const row = document.createElement('tr');
             const statusSelect = document.createElement('select');
             const statusOptions = ['正常', '封禁', '删除'];
+            const service_status = (item.banned_expiry <= Date.now())?0:1;
             statusOptions.forEach(optionText => {
                 const option = document.createElement('option');
                 option.value = optionText;
                 option.textContent = optionText;
-                if (optionText === item.status) {
+                if (optionText === statusOptions[service_status]) {
                     option.selected = true;
                 }
                 statusSelect.appendChild(option);
             });
     
+            const createdDate = new Date(item.created_at).toLocaleDateString();
+            const serviceDuration=(item.service_expiry <= Date.now())?0:Math.floor((item.service_expiry - Date.now()) / (1000 * 60 * 60 * 24));
             row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.user}</td>
-                <td>${item.createTime}</td>
-                <td>${item.serviceDuration}</td>
+                <td>${index+1}</td>
+                <td>${item.username}</td>
+                <td>${createdDate}</td>
+                <td>${serviceDuration} days</td>
             `;
             row.appendChild(statusSelect);
             manageTableBody.appendChild(row);
@@ -131,14 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newManageData = await window.electronAPI.queryUsers("all"); 
                 console.log(newManageData);
                 // 模拟管理表格数据
-                const manageMockData = [
-                    { id: 1, user: 'User1', createTime: '2024-01-01', serviceDuration: '1 month', status: '正常' },
-                    { id: 2, user: 'User2', createTime: '2024-01-02', serviceDuration: '2 months', status: '封禁' }
-                ];
+                // const manageMockData = [
+                //     { id: 1, user: 'User1', createTime: '2024-01-01', serviceDuration: '1 month', status: '正常' },
+                //     { id: 2, user: 'User2', createTime: '2024-01-02', serviceDuration: '2 months', status: '封禁' }
+                // ];
                 // 清空表格内容
                 manageTableBody.innerHTML = '';
                 // 重新填充表格数据
-                populateManageTable(manageTableBody, manageMockData);
+                populateManageTable(manageTableBody, newManageData.users);
             } catch (error) {
                 console.error('查询用户出错:', error);
             }

@@ -70,7 +70,7 @@ async function manageUsers(operations) {
             netdata.aeskey = Buffer.from(deData.newkey, 'base64'); // 明确转换为 Buffer
         }
         console.log('Querying user information succeeds:', deData);
-        return {status:deData.success,operand:deData.operatenum};
+        return {status:deData.success,users:deData.users};
     }
     catch (error) {
       console.error('Querying user information failed:', error); 
