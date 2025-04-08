@@ -78,20 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 管理标签页相关操作
-    const manageTab = document.getElementById('manage');
-    if (manageTab) {
-        const manageTableBody = manageTab.querySelector('tbody');
-        const clearExpiredButton = manageTab.querySelector('button:nth-of-type(1)');
-        const operateAllButton = manageTab.querySelector('button:nth-of-type(2)');
 
-        // 模拟管理表格数据
-        const manageMockData = [
-            { id: 1, user: 'User1', createTime: '2024-01-01', serviceDuration: '1 month', status: '正常' },
-            { id: 2, user: 'User2', createTime: '2024-01-02', serviceDuration: '2 months', status: '封禁' }
-        ];
-
-        // 填充管理表格数据
+    function populateManageTable(manageTableBody, manageMockData) {
         manageMockData.forEach(item => {
             const row = document.createElement('tr');
             const statusSelect = document.createElement('select');
@@ -105,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 statusSelect.appendChild(option);
             });
-
+    
             row.innerHTML = `
                 <td>${item.id}</td>
                 <td>${item.user}</td>
@@ -115,6 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
             row.appendChild(statusSelect);
             manageTableBody.appendChild(row);
         });
+    }
+
+    // 管理标签页相关操作
+    const manageTab = document.getElementById('manage');
+    if (manageTab) {
+        const manageTableBody = manageTab.querySelector('tbody');
+        const clearExpiredButton = document.getElementById('clearExpiredButton');
+        const operateAllButton = document.getElementById('operateAllButton');
+        const queryUsersButton = document.getElementById('queryUsersButton');
+
+        manageTableBody.innerHTML = '';
 
         clearExpiredButton.addEventListener('click', () => {
             // 这里可以添加一键清理所有过期用户的逻辑
@@ -125,6 +124,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // 这里可以添加一键操作所有的逻辑
             console.log('一键操作所有');
         });
+
+        queryUsersButton.addEventListener('click', async() => {
+            try {
+                // 假设这里调用查询用户的接口，获取新的数据
+                const newManageData = await window.electronAPI.queryUsers("all"); 
+                console.log(newManageData);
+                // 模拟管理表格数据
+                const manageMockData = [
+                    { id: 1, user: 'User1', createTime: '2024-01-01', serviceDuration: '1 month', status: '正常' },
+                    { id: 2, user: 'User2', createTime: '2024-01-02', serviceDuration: '2 months', status: '封禁' }
+                ];
+                // 清空表格内容
+                manageTableBody.innerHTML = '';
+                // 重新填充表格数据
+                populateManageTable(manageTableBody, manageMockData);
+            } catch (error) {
+                console.error('查询用户出错:', error);
+            }
+        })
     }
 
     // 生成标签页相关操作

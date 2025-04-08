@@ -25,6 +25,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   manageUsers: (operations) => ipcRenderer.invoke('manageUsers', operations),
   queryGenKeyCards: (begin, end) => ipcRenderer.invoke('queryGenKeyCards',  begin, end),
   queryActivateKeyCards: (begin, end) => ipcRenderer.invoke('queryActivateKeyCards', begin, end),
+  queryUsers: (mode) => ipcRenderer.invoke('queryUsers', mode),
 })
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -10,7 +10,7 @@ const crc64 = require('crc64-ecma');
 const { sendEncryptRequest, login } = require('./admin/login.js');
 const { changepassword } = require('./admin/change.js');
 const { genKeyCards } = require('./admin/generate.js');
-const { manageUsers } = require('./admin/manage.js');
+const { manageUsers,queryUsers } = require('./admin/manage.js');
 const { queryGenKeyCards, queryActivateKeyCards } = require('./admin/query.js');
 
 function createWindow () {
@@ -119,6 +119,9 @@ function createWindow () {
   ipcMain.handle('queryActivateKeyCards', async (event, begin, end) => {
       return await queryActivateKeyCards(begin, end);
   });
+  ipcMain.handle('queryUsers', async (event, mode) => {
+      return await queryUsers(mode);
+  })
 }
 
 // This method will be called when Electron has finished
