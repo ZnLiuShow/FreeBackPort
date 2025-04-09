@@ -28,7 +28,7 @@ function createWindow () {
   mainWindow.loadFile('src/login.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // 添加监听器
   ipcMain.on('navigate-to', (event, path) => {
@@ -40,7 +40,7 @@ function createWindow () {
   // 监听读取 app.ini 文件的请求
   ipcMain.handle('read-app-ini', async () => {
     try {
-        const iniPath = path.join(__dirname, 'app.ini');
+        const iniPath = getIniPath();
         const iniContent = fs.readFileSync(iniPath, 'utf-8');
         return ini.parse(iniContent);
     } catch (error) {
@@ -52,7 +52,7 @@ function createWindow () {
   // 监听写入 app.ini 文件的请求
   ipcMain.handle('write-app-ini', async (event, config) => {
     try {
-        const iniPath = path.join(__dirname, 'app.ini');
+        const iniPath = getIniPath();
         const iniContent = ini.stringify(config);
         fs.writeFileSync(iniPath, iniContent);
         return true;
@@ -65,7 +65,7 @@ function createWindow () {
   // 监听清空 app.ini 文件的请求
   ipcMain.handle('clear-app-ini', async () => {
     try {
-        const iniPath = path.join(__dirname, 'app.ini');
+        const iniPath = getIniPath();
         fs.writeFileSync(iniPath, '');
         return true;
     } catch (error) {
@@ -146,3 +146,23 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const getIniPath = () => {
+  if (app.isPackaged) {
+    // 生产环境路径
+    const exeDir = path.dirname(app.getPath('exe')); // 获取可执行文件所在目录
+
+    // 针对 macOS 特殊处理
+    if (process.platform === 'darwin') {
+      // 回退到 .app 包的父目录（如 /Applications）
+      const appRoot = path.dirname(path.dirname(path.dirname(exeDir)));
+      return path.join(appRoot, 'app.ini');
+    }
+
+    // Windows/Linux：直接使用可执行文件所在目录
+    return path.join(exeDir, 'app.ini');
+  } else {
+    // 开发环境路径
+    return path.join(__dirname, 'app.ini');
+  }
+};

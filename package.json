@@ -4,7 +4,12 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -wl",
+    "dist:win": "electron-builder -w",
+    "dist:mac": "electron-builder -m",
+    "dist:linux": "electron-builder -l"
   },
   "keywords": [
     "Electron",
@@ -16,10 +21,57 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^34.1.1"
+    "electron": "^34.1.1",
+    "electron-builder": "^26.0.12"
   },
   "dependencies": {
     "crc64-ecma": "^2.0.0",
     "ini": "^5.0.0"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "productName": "My Electron App",
+    "copyright": "Copyright © 2025 Your Name",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!node_modules/**/*.d.ts",
+      "!node_modules/.bin",
+      "!*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!.gitignore",
+      "!.gitattributes",
+      "!.npmignore",
+      "!.eslintrc",
+      "!.prettierrc",
+      "!yarn.lock",
+      "!package-lock.json",
+      "!tsconfig.json",
+      "!tslint.json"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "pkg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "category": "Utility"
+    }
   }
 }

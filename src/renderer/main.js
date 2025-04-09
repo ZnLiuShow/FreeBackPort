@@ -120,9 +120,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         manageTableBody.innerHTML = '';
 
-        clearExpiredButton.addEventListener('click', () => {
-            // 这里可以添加一键清理所有过期用户的逻辑
-            console.log('清理所有过期用户');
+        clearExpiredButton.addEventListener('click', async() => {
+            // const expiredUsernames = [];
+            const expiredUser = [];
+            const rows = manageTableBody.querySelectorAll('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const serviceDurationCell = row.cells[3];
+                if (serviceDurationCell.textContent === '0 days') {
+                    const username = row.cells[1].textContent;
+                    const usercrc64 = await window.electronAPI.calculateCRC64(username);
+                    expiredUser.push({ 
+                        usercrc64: usercrc64.toString(),
+                        operate: 2
+                    });
+                    // expiredUsernames.push(username);
+                }
+            }            
+            // console.log('过期用户的用户名:', expiredUsernames);
+            const result =  await window.electronAPI.manageUsers(expiredUser);
+            if (result.status) {
+                alert(`操作成功: ${result.operand}`); 
+            }
+            const newManageData = await window.electronAPI.queryUsers("all"); 
+            manageTableBody.innerHTML = '';
+            populateManageTable(manageTableBody, newManageData.users);
         });
 
         operateAllButton.addEventListener('click', async() => {
@@ -160,12 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 // 假设这里调用查询用户的接口，获取新的数据
                 const newManageData = await window.electronAPI.queryUsers("all"); 
-                console.log(newManageData);
-                // 模拟管理表格数据
-                // const manageMockData = [
-                //     { id: 1, user: 'User1', createTime: '2024-01-01', serviceDuration: '1 month', status: '正常' },
-                //     { id: 2, user: 'User2', createTime: '2024-01-02', serviceDuration: '2 months', status: '封禁' }
-                // ];
+                console.log(newManageData);    
                 // 清空表格内容
                 manageTableBody.innerHTML = '';
                 // 重新填充表格数据
