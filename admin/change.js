@@ -18,7 +18,7 @@ const {sendEncryptRequest} = require('./login.js');
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/agents/change`, {
+        const response = await fetch(`${hostaddr}/api/v1/agents/change`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)

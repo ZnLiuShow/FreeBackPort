@@ -15,7 +15,7 @@ async function manageUsers(operations) {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/agents/manage`, {
+        const response = await fetch(`${hostaddr}/api/v1/agents/manage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)
@@ -55,7 +55,7 @@ async function manageUsers(operations) {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/agents/getusers`, {
+        const response = await fetch(`${hostaddr}/api/v1/agents/getusers`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)

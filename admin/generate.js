@@ -12,7 +12,7 @@ async function genKeyCards(num, type) {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/cards`, {
+        const response = await fetch(`${hostaddr}/api/v1/cards`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)

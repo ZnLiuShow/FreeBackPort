@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 
 module.exports = { 
-  hostaddr:"http://localhost:3000", 
+  hostaddr:"http://101.43.17.19", 
   netdata:{
     mytoken: "",
     aeskey: null,

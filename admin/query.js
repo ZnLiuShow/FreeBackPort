@@ -13,7 +13,7 @@ async function queryGenKeyCards( begin, end) {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/cards/query`, {
+        const response = await fetch(`${hostaddr}/api/v1/cards/query`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)
@@ -51,7 +51,7 @@ async function queryGenKeyCards( begin, end) {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/cards/query`, {
+        const response = await fetch(`${hostaddr}/api/v1/cards/query`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)

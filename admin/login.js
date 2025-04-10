@@ -8,7 +8,7 @@ async function sendEncryptRequest() {
   const keyBase64 = keyBuffer.toString('base64');
 
   try {
-    const response = await fetch(`${hostaddr}/api/agents`, {
+    const response = await fetch(`${hostaddr}/api/v1/agents`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key: keyBase64 }),
@@ -40,7 +40,7 @@ async function sendEncryptRequest() {
             timestamp:Date.now(),
         };
         const encryptedData = encryptJSON(data, netdata.aeskey);
-        const response = await fetch(`${hostaddr}/api/agents/login`, {
+        const response = await fetch(`${hostaddr}/api/v1/agents/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body:JSON.stringify(encryptedData)
